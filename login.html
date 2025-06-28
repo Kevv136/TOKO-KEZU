@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KEVV STORE - Login</title>
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset dan Pengaturan Dasar */
+        :root {
+            --primary-color: #3a7dff;
+            --secondary-color: #1a202c;
+            --accent-color: #2d3748;
+            --text-color: #e2e8f0;
+            --card-bg: #2d3748;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #ee7752, #04ff00, #23a6d5, #ff0000, #eeff00);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .auth-container {
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            color: var(--text-color);
+        }
+
+        .auth-container.active {
+            display: block;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-header h2 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .auth-header p {
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--accent-color);
+            border: 1px solid #4a5568;
+            border-radius: var(--border-radius);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn-auth {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-auth:hover {
+            background-color: #2b6ad9;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .auth-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .toggle-auth {
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            margin-top: 5px;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .logo-auth {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-auth h1 {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .logo-auth h1 span {
+            color: var(--primary-color);
+        }
+
+        .logo-auth p {
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Auth Container -->
+    <div class="auth-container active" id="login-container">
+        <div class="logo-auth">
+            <h1>KEZU STORE | <span>APP PREMIUM & JASA JOKI</span></h1>
+            <p>Menyediakan APLIKASI PREMIUM Dan JASA JOKI Termurah & Terpercaya</p>
+        </div>
+        <div class="auth-header">
+            <h2>Masuk ke Akun Anda</h2>
+            <p>Silakan masuk untuk mengakses layanan kami</p>
+        </div>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email">Email atau Username</label>
+                <input type="text" id="login-email" placeholder="Masukkan email atau username" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" placeholder="Masukkan password" required>
+                <a href="#" class="forgot-password" id="forgot-password">Lupa password?</a>
+            </div>
+            <button type="submit" class="btn-auth">Masuk</button>
+        </form>
+        <div class="auth-footer">
+            Belum punya akun? <span class="toggle-auth" id="show-register">Daftar sekarang</span>
+        </div>
+    </div>
+
+    <div class="auth-container" id="register-container">
+        <div class="logo-auth">
+            <h1>KEZU STORE | <span>APP PREMIUM & JASA JOKI</span></h1>
+            <p>Menyediakan APLIKASI PREMIUM Dan JASA JOKI Termurah & Terpercaya</p>
+        </div>
+        <div class="auth-header">
+            <h2>Buat Akun Baru</h2>
+            <p>Daftar sekarang untuk mulai menggunakan layanan kami</p>
+        </div>
+        <form id="register-form">
+            <div class="form-group">
+                <label for="register-username">Username</label>
+                <input type="text" id="register-username" placeholder="Masukkan username" required>
+            </div>
+            <div class="form-group">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" placeholder="Masukkan email" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" placeholder="Masukkan password" required>
+            </div>
+            <div class="form-group">
+                <label for="register-confirm-password">Konfirmasi Password</label>
+                <input type="password" id="register-confirm-password" placeholder="Masukkan ulang password" required>
+            </div>
+            <button type="submit" class="btn-auth">Daftar</button>
+        </form>
+        <div class="auth-footer">
+            Sudah punya akun? <span class="toggle-auth" id="show-login">Masuk disini</span>
+        </div>
+    </div>
+
+    <div class="auth-container" id="forgot-container">
+        <div class="logo-auth">
+            <h1>KEZU STORE | <span>APP PREMIUM & JASA JOKI</span></h1>
+            <p>Menyediakan APLIKASI PREMIUM Dan JASA JOKI Termurah & Terpercaya</p>
+        </div>
+        <div class="auth-header">
+            <h2>Lupa Password</h2>
+            <p>Masukkan email Anda untuk mereset password</p>
+        </div>
+        <form id="forgot-form">
+            <div class="form-group">
+                <label for="forgot-email">Email</label>
+                <input type="email" id="forgot-email" placeholder="Masukkan email terdaftar" required>
+            </div>
+            <button type="submit" class="btn-auth">Kirim Link Reset</button>
+        </form>
+        <div class="auth-footer">
+            Ingat password? <span class="toggle-auth" id="show-login-from-forgot">Masuk disini</span>
+        </div>
+        
+        <div class="reset-password-form" style="display:none;">
+        <h3>Reset Password</h3>
+        <input type="email" id="resetEmail" placeholder="Email Anda">
+        <button onclick="handleResetPassword()">Kirim Link Reset</button>
+        <p><a href="#" onclick="toggleResetForm()">Kembali ke Login</a></p>
+        </div>
+
+        <script>
+        function toggleResetForm() {
+        document.querySelector('.login-form').style.display = 'block';
+        document.querySelector('.reset-password-form').style.display = 'none';
+        }
+
+        function showResetForm() {
+        document.querySelector('.login-form').style.display = 'none';
+        document.querySelector('.reset-password-form').style.display = 'block';
+        }
+        </script>
+    </div>
+
+    <!-- Website Content (hidden by default) -->
+    <div id="website-content" style="display: none;">
+        <!-- Konten website utama yang sudah ada -->
+        <!-- ... -->
+    </div>
+
+    <script>
+        // Toggle antara form login dan register
+        document.getElementById('show-register').addEventListener('click', function() {
+            document.getElementById('login-container').classList.remove('active');
+            document.getElementById('register-container').classList.add('active');
+            document.getElementById('forgot-container').classList.remove('active');
+        });
+
+        document.getElementById('show-login').addEventListener('click', function() {
+            document.getElementById('register-container').classList.remove('active');
+            document.getElementById('login-container').classList.add('active');
+            document.getElementById('forgot-container').classList.remove('active');
+        });
+
+        // Toggle ke form lupa password
+        document.getElementById('forgot-password').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('login-container').classList.remove('active');
+            document.getElementById('register-container').classList.remove('active');
+            document.getElementById('forgot-container').classList.add('active');
+        });
+
+        document.getElementById('show-login-from-forgot').addEventListener('click', function() {
+            document.getElementById('forgot-container').classList.remove('active');
+            document.getElementById('login-container').classList.add('active');
+        });
+
+        // Simulasi login (untuk demo saja)
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Simpan status login di localStorage
+            localStorage.setItem('isLoggedIn', 'true');
+            // Sembunyikan form auth dan tampilkan website
+            document.getElementById('login-container').classList.remove('active');
+            document.getElementById('website-content').style.display = 'block';
+            // Redirect ke halaman utama
+            window.location.href = 'index11.html';
+        });
+
+        // Cek status login saat halaman dimuat
+        window.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('isLoggedIn')) {
+                document.getElementById('login-container').classList.remove('active');
+                document.getElementById('website-content').style.display = 'block';
+            }
+        });
+
+        // Validasi form register
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                alert('Password dan konfirmasi password tidak sama!');
+                return;
+            }
+            
+            // Simpan data user (untuk demo saja)
+            const userData = {
+                username: document.getElementById('register-username').value,
+                email: document.getElementById('register-email').value,
+                password: password
+            };
+            
+            localStorage.setItem('userData', JSON.stringify(userData));
+            alert('Pendaftaran berhasil! Silakan login.');
+            
+            // Tampilkan form login
+            document.getElementById('register-container').classList.remove('active');
+            document.getElementById('login-container').classList.add('active');
+        });
+
+        // Simulasi reset password
+        document.getElementById('forgot-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('forgot-email').value;
+            
+            // Cek apakah email terdaftar (untuk demo saja)
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            
+            if (userData && userData.email === email) {
+                alert('Link reset password telah dikirim ke email Anda.');
+                // Kembali ke form login
+                document.getElementById('forgot-container').classList.remove('active');
+                document.getElementById('login-container').classList.add('active');
+            } else {
+                alert('Email tidak terdaftar!');
+            }
+        });
+
+        document.querySelector('.auth-container form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+    
+        // Kirim permintaan ke backend
+        const response = await fetch('send-reset-email.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+        });
+    
+        const result = await response.text();
+        alert(result); // "Link reset telah dikirim ke email Anda"
+        });
+
+    </script>
+</body>
+</html>
